@@ -1,0 +1,15 @@
+<div id="newsContainerId">
+    <div ng-repeat="article in $ctrl.articles">
+        <div class="newsItem">
+            <div class="newsItemTitle">
+                <span>${article.title}</span>
+            </div>
+            <div>
+                <span>${article.description}</span>
+            </div>
+            <div class="newsItemAdditional">
+                <span>${article.date.toLocaleString()}</span>
+            </div>
+        </div>
+    </div>
+</div>

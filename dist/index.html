@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>To do list</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.9/angular-resource.js"></script>
+</head>
+
+<body ng-app="newsApp">
+    <div ng-controller="ArticlesListController as news">
+    	<articles-list articles="news.articles"></articles-list>
+    </div>
+
+    <script type="text/javascript" src="./js/all.js"></script>
+</body>
+
+</html>
