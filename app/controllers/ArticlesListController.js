@@ -6,7 +6,7 @@ angular.module('newsApp').controller("ArticlesListController", function(ArticleS
     function init() {
     	return ArticleService.getArticlesList()
     		.then(function(response){
-    			this.articles = response;
+    			_this.articles = response;
     		});
     }
 });

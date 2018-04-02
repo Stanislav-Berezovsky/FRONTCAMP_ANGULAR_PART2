@@ -1,9 +1,9 @@
 var newsApp = angular.module('newsApp', ["ngRoute","ngResource"]);
 
 angular.module('newsApp').component('articlesList', {
+    templateUrl: "../templates/articlesListTemplate.html",
     bindings: {
-        articles: '=',
-        templateUrl: "../templates/articlesListTemplate.html"
+        articles: '='
     }
 });
 angular.module('newsApp').controller("ArticlesListController", function(ArticleService) {
@@ -14,7 +14,7 @@ angular.module('newsApp').controller("ArticlesListController", function(ArticleS
     function init() {
     	return ArticleService.getArticlesList()
     		.then(function(response){
-    			this.articles = response;
+    			_this.articles = response;
     		});
     }
 });
