@@ -5,6 +5,7 @@ angular.module('newsApp').service('ArticleService', function($q, ArticlesListFac
         return (articleList.length > 0) ? $q.resolve(articleList) :
             ArticlesListFactory.query().$promise.then(function(response) {
                 response.forEach(function(article) {
+                    article.publishedAt = new Date(article.publishedAt);
                     return articleList.push(angular.copy(article));
                 });
 
