@@ -2,8 +2,7 @@ var newsApp = angular.module('newsApp', ["ngRoute","ngResource"]);
 
 newsApp.config(function($routeProvider) {
     $routeProvider.when('/', {
-        template: '<articles-list articles="articles"></articles-list>',
-        controller: 'ArticlesListController'
+        template: '<articles-list></articles-list>'
     });
     $routeProvider.when('/add', {
         template: '<article article="article" action-article="addArticle(article)"></article>',
@@ -30,9 +29,7 @@ angular.module('newsApp').directive('article', ['$parse', function () {
 }]);
 angular.module('newsApp').component('articlesList', {
     templateUrl: "../templates/articlesListTemplate.html",
-    bindings: {
-        articles: '='
-    }
+    controller: 'ArticlesListController'
 });
 angular.module('newsApp').service('ArticleService', function($q, ArticlesListFactory) {
     var articleList = [];

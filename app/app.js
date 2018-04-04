@@ -2,8 +2,7 @@ var newsApp = angular.module('newsApp', ["ngRoute","ngResource"]);
 
 newsApp.config(function($routeProvider) {
     $routeProvider.when('/', {
-        template: '<articles-list articles="articles"></articles-list>',
-        controller: 'ArticlesListController'
+        template: '<articles-list></articles-list>'
     });
     $routeProvider.when('/add', {
         template: '<article article="article" action-article="addArticle(article)"></article>',
