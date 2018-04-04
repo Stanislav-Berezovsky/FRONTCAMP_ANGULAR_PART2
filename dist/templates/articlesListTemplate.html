@@ -2,7 +2,7 @@
     <div ng-repeat="article in $ctrl.articles">
         <div class="newsItem">
             <div class="newsItemTitle">
-                <span>{{article.title}}</span>
+                <span><a href="./#!/edit/{{article.articleId}}">{{article.title}}</a></span>
             </div>
             <br>
             <div>

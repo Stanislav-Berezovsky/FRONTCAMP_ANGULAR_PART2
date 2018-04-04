@@ -11,11 +11,10 @@
 </head>
 
 <body ng-app="newsApp">
-    <div ng-controller="ArticlesListController">
-        <article article="article" add-article="addArticle"></article>
-    	<articles-list articles="articles"></articles-list>
-    </div>
-
+    <a href="./#!/">all news</a>
+    <a href="./#!/add">add news</a>
+    <br>
+    <ng-view></ng-view>
     <script type="text/javascript" src="./js/all.js"></script>
 </body>
 

@@ -1,23 +1,13 @@
-angular.module('newsApp').controller("ArticlesListController", function($scope, ArticleService) {
+angular.module('newsApp').controller("ArticlesListController", function ($scope, $location,ArticleService) {
     init();
 
-    $scope.addArticle = function(article) {
-        ArticleService.addArticle(article);
-
-        $scope.article = {
-            title: '',
-            discription: '',
-        };
+    $scope.editArticle = function(id){
+    	$location.path('/edit/'+ articleId);
     };
-
+  
     function init() {
-        $scope.article = {
-            title: '',
-            discription: ''
-        };
-
         return ArticleService.getArticlesList()
-            .then(function(response) {
+            .then(function (response) {
                 $scope.articles = response;
             });
     }

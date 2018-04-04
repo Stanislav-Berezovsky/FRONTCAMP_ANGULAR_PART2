@@ -1,11 +1,12 @@
-angular.module('newsApp').directive('article', function() {
+angular.module('newsApp').directive('article', ['$parse', function () {
     return {
         restrict: "E",
         templateUrl: "../templates/articleTemplate.html",
         scope: {
             article: '=',
-            addArticle: '&'
+            actionArticle: '&'
         },
-        link: function(scope, el, attr) {}
+        link: function (scope, element, attrs) {
+        },
     };
-});
+}]);

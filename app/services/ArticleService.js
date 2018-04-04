@@ -21,8 +21,8 @@ angular.module('newsApp').service('ArticleService', function($q, ArticlesListFac
         articleList.push(article);
     }
 
-    function editArticle(item) {
-        (item.isDone ? filteredLists.doneItemsList : filteredLists.processItemsList)[item.index].description = item.text;
+    function editArticle(article) {
+        articleList[article.articleId] = article;
     }
 
     function getAllArticles(){
@@ -33,6 +33,6 @@ angular.module('newsApp').service('ArticleService', function($q, ArticlesListFac
         getArticlesList: getArticlesList,
         addArticle: addArticle,
         editArticle: editArticle,
-        articleList: articleList
+        getAllArticles: getAllArticles
     };
 });

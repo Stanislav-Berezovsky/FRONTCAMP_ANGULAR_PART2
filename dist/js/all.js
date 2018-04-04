@@ -1,16 +1,33 @@
 var newsApp = angular.module('newsApp', ["ngRoute","ngResource"]);
 
-angular.module('newsApp').directive('article', function() {
+newsApp.config(function($routeProvider) {
+    $routeProvider.when('/', {
+        template: '<articles-list articles="articles"></articles-list>',
+        controller: 'ArticlesListController'
+    });
+    $routeProvider.when('/add', {
+        template: '<article article="article" action-article="addArticle(article)"></article>',
+        controller: 'ArticleController'
+    });
+    $routeProvider.when('/edit/:articleId', {
+            template: '<article article="article" action-article="editArticle(article)"></article>',
+            controller: 'ArticleController'
+        })
+        .otherwise({ template: '<h1>404 - not found such page</h1>' });
+});
+
+angular.module('newsApp').directive('article', ['$parse', function () {
     return {
         restrict: "E",
         templateUrl: "../templates/articleTemplate.html",
         scope: {
             article: '=',
-            addArticle: '&'
+            actionArticle: '&'
         },
-        link: function(scope, el, attr) {}
+        link: function (scope, element, attrs) {
+        },
     };
-});
+}]);
 angular.module('newsApp').component('articlesList', {
     templateUrl: "../templates/articlesListTemplate.html",
     bindings: {
@@ -40,8 +57,8 @@ angular.module('newsApp').service('ArticleService', function($q, ArticlesListFac
         articleList.push(article);
     }
 
-    function editArticle(item) {
-        (item.isDone ? filteredLists.doneItemsList : filteredLists.processItemsList)[item.index].description = item.text;
+    function editArticle(article) {
+        articleList[article.articleId] = article;
     }
 
     function getAllArticles(){
@@ -52,7 +69,7 @@ angular.module('newsApp').service('ArticleService', function($q, ArticlesListFac
         getArticlesList: getArticlesList,
         addArticle: addArticle,
         editArticle: editArticle,
-        articleList: articleList
+        getAllArticles: getAllArticles
     };
 });
 angular.module('newsApp').factory('ArticlesListFactory', function($resource) {
@@ -61,26 +78,53 @@ angular.module('newsApp').factory('ArticlesListFactory', function($resource) {
         format: 'json'
     });
 });
-angular.module('newsApp').controller("ArticlesListController", function($scope, ArticleService) {
+angular.module('newsApp').controller("ArticleController", function($scope, $location, ArticleService, $routeParams) {
     init();
 
     $scope.addArticle = function(article) {
         ArticleService.addArticle(article);
 
-        $scope.article = {
-            title: '',
-            discription: '',
-        };
+        $location.path('/');
+    };
+
+    $scope.editArticle = function(article) {
+        ArticleService.editArticle(article);
+
+        $location.path('/');
     };
 
     function init() {
-        $scope.article = {
-            title: '',
-            discription: ''
-        };
+        if ($routeParams.articleId) {
+            var articleId = Number($routeParams.articleId),
+                articles = ArticleService.getAllArticles();
 
+            articleIndex = articles.map(function(article) {
+                return article.articleId;
+            }).indexOf(articleId);
+
+            if (articleIndex !== -1) {
+                $scope.article = angular.copy(articles[articleIndex]);
+                return;
+            }
+        }
+
+        $scope.article = {
+            articleId: -1,
+            title: '',
+            description: '',
+        };
+    }
+});
+angular.module('newsApp').controller("ArticlesListController", function ($scope, $location,ArticleService) {
+    init();
+
+    $scope.editArticle = function(id){
+    	$location.path('/edit/'+ articleId);
+    };
+  
+    function init() {
         return ArticleService.getArticlesList()
-            .then(function(response) {
+            .then(function (response) {
                 $scope.articles = response;
             });
     }
