@@ -9,6 +9,7 @@ var jsSrc = './app/**/*.js';
 gulp.task('webserver', function() {
     gulp.src('./dist/')
         .pipe(webserver({
+        	port: 9002,
             livereload: true,
             open: true
         }));

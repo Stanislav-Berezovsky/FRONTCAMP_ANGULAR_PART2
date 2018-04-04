@@ -1,40 +1,20 @@
 var newsApp = angular.module('newsApp', ["ngRoute","ngResource"]);
 
-angular.module('newsApp').directive('article', function(
-	return {
-		restrict: "E",
-		templateUrl: "../templates/articlesListTemplate.html",
-		controller: 'storyController'
-	}
-));
+angular.module('newsApp').directive('article', function() {
+    return {
+        restrict: "E",
+        templateUrl: "../templates/articleTemplate.html",
+        scope: {
+            article: '=',
+            addArticle: '&'
+        },
+        link: function(scope, el, attr) {}
+    };
+});
 angular.module('newsApp').component('articlesList', {
     templateUrl: "../templates/articlesListTemplate.html",
     bindings: {
         articles: '='
-    }
-});
-angular.module('newsApp').controller("ArticleController", function(ArticleService) {
-	var _this = this;
-
-	init();
-
-    function init() {
-    	return ArticleService.getArticlesList()
-    		.then(function(response){
-    			_this.articles = response;
-    		});
-    }
-});
-angular.module('newsApp').controller("ArticlesListController", function(ArticleService) {
-	var _this = this;
-
-	init();
-
-    function init() {
-    	return ArticleService.getArticlesList()
-    		.then(function(response){
-    			_this.articles = response;
-    		});
     }
 });
 angular.module('newsApp').service('ArticleService', function($q, ArticlesListFactory) {
@@ -52,26 +32,27 @@ angular.module('newsApp').service('ArticleService', function($q, ArticlesListFac
             });
     }
 
-    function addArticle(description) {
-        var now = new Date(),
-            newItem = {
-                itemId: lastItemIndex++,
-                description: description,
-                date: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
-                isDone: false
-            };
-
-        filteredLists.processItemsList.push(newItem);
+    function addArticle(article) {
+        var now = new Date();
+           
+        article.articleId = articleList.length ;
+        article.publishedAt = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        articleList.push(article);
     }
 
     function editArticle(item) {
         (item.isDone ? filteredLists.doneItemsList : filteredLists.processItemsList)[item.index].description = item.text;
     }
 
+    function getAllArticles(){
+        return articleList;
+    }
+
     return {
         getArticlesList: getArticlesList,
         addArticle: addArticle,
-        editArticle: editArticle
+        editArticle: editArticle,
+        articleList: articleList
     };
 });
 angular.module('newsApp').factory('ArticlesListFactory', function($resource) {
@@ -79,4 +60,28 @@ angular.module('newsApp').factory('ArticlesListFactory', function($resource) {
         fileId: 'articles',
         format: 'json'
     });
+});
+angular.module('newsApp').controller("ArticlesListController", function($scope, ArticleService) {
+    init();
+
+    $scope.addArticle = function(article) {
+        ArticleService.addArticle(article);
+
+        $scope.article = {
+            title: '',
+            discription: '',
+        };
+    };
+
+    function init() {
+        $scope.article = {
+            title: '',
+            discription: ''
+        };
+
+        return ArticleService.getArticlesList()
+            .then(function(response) {
+                $scope.articles = response;
+            });
+    }
 });
