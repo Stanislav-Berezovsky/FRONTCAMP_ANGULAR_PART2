@@ -1,4 +1,4 @@
-var newsApp = angular.module('newsApp', ["ngRoute","ngResource"]);
+var newsApp = angular.module('newsApp', ["ngRoute","ngResource","angularUtils.directives.dirPagination"]);
 
 newsApp.config(function($routeProvider) {
     $routeProvider.when('/', {

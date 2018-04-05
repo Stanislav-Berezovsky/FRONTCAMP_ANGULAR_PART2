@@ -25,7 +25,9 @@ gulp.task('jshint-app', function() {
 });
 
 gulp.task('concat-allJs', function() {
-    return gulp.src(jsSrc)
+    return gulp.src([
+        './node_modules/angular-utils-pagination/dirPagination.js',
+        jsSrc])
         .pipe(concat('all.js'))
         .pipe(gulp.dest('./dist/js/'));
 });

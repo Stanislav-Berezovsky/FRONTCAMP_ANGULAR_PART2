@@ -1,7 +1,5 @@
 #newsContainerId {
     width: 80%;
-    position: relative;
-    left: 10%;
     border: 1px solid black;
     border-bottom-style: none;
 }
@@ -16,9 +14,14 @@
     color: gray;
 }
 
- .newsItemTitle {
-        font-family: 'Times New Roman', Times, serif;
-        font-size: 20px;
-        font-weight: bold;
-        margin-left: 10px;
-    }
+.newsItemTitle {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.element-position{
+    position: relative;
+    left: 10%;
+}

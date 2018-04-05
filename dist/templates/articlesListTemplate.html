@@ -1,17 +1,21 @@
-<div id="newsContainerId">
-    <div ng-repeat="article in articles">
-        <div class="newsItem">
-            <div class="newsItemTitle">
-                <span><a href="./#!/edit/{{article.articleId}}">{{article.title}}</a></span>
-            </div>
-            <br>
-            <div>
-                <span>{{article.description}}</span>
-            </div>
-             <br>
-            <div class="newsItemAdditional">
-                <span>{{article.publishedAt.toLocaleString()}}</span>
+<div class="element-position">
+    <div id="newsContainerId">
+        <div dir-paginate="article in articles | itemsPerPage: 5">
+            <div class="newsItem">
+                <div class="newsItemTitle">
+                    <span><a href="./#!/edit/{{article.articleId}}">{{article.title}}</a></span>
+                </div>
+                <br>
+                <div>
+                    <span>{{article.description}}</span>
+                </div>
+                <br>
+                <div class="newsItemAdditional">
+                    <span>{{article.publishedAt.toLocaleString()}}</span>
+                </div>
             </div>
         </div>
     </div>
+
+    <dir-pagination-controls ng-if="articles.length > 0"></dir-pagination-controls>
 </div>
