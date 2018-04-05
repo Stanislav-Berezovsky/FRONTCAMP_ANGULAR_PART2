@@ -31,7 +31,7 @@ angular.module('newsApp').component('articlesList', {
     templateUrl: "../templates/articlesListTemplate.html",
     controller: 'ArticlesListController'
 });
-angular.module('newsApp').component('articlesList', {
+angular.module('newsApp').component('navigation', {
     templateUrl: "../templates/navigationTemplate.html",
     controller: function($scope, $location) {
     	$scope.navigateToAddArticleView = function(){
